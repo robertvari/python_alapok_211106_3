@@ -1,6 +1,10 @@
 import random
 
 
+class Player:
+    pass
+
+
 class Card:
     def __init__(self, name: str, value: int):
         self._name = name
@@ -62,4 +66,5 @@ class Deck:
 if __name__ == '__main__':
     deck = Deck()
     deck.create()
-    print(deck)
+
+    player = Player()
