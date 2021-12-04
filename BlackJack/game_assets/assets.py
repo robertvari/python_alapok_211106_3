@@ -1,8 +1,18 @@
 import random
 
 
-class Player:
-    pass
+class PlayerBase:
+    name_list = ["Brittney Moriah", "Curtis Tristin", "Lucas Troy", "Chip Gale", "Simon Lynn"]
+
+    def __init__(self):
+        self._name = None
+        self._credits = 0
+        self._hand = []
+        self._in_game = True
+
+    def create(self):
+        self._credits = random.randint(100, 1000)
+        self._name = random.choice(PlayerBase.name_list)
 
 
 class Card:
@@ -66,5 +76,3 @@ class Deck:
 if __name__ == '__main__':
     deck = Deck()
     deck.create()
-
-    player = Player()
