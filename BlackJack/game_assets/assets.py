@@ -19,6 +19,38 @@ class Card:
         return f"{self._name} {self._value}"
 
 
+class Deck:
+    def __init__(self):
+        self._cards = []
+
+    def create(self):
+        self._cards.clear()
+
+        cards = [
+            ["2", 2],
+            ["3", 3],
+            ["4", 4],
+            ["5", 5],
+            ["6", 6],
+            ["7", 7],
+            ["8", 8],
+            ["9", 9],
+            ["10", 10],
+            ["King", 10],
+            ["Queen", 10],
+            ["Jack", 10],
+            ["Ace", 11]
+        ]
+
+        names = ["Heart", "Club", "Diamond", "Spade"]
+
+        for name in names:
+            for card in cards:
+                card_name = f"{name} {card[0]}"
+                card = Card(card_name, card[1])
+                self._cards.append(card)
+
+
 if __name__ == '__main__':
-    card = Card("Ace", 11)
-    print(card)
+    deck = Deck()
+    deck.create()
