@@ -18,8 +18,11 @@ class PlayerBase:
         print(f"Name: {self._name}")
         print(f"Credits: {self._credits}")
         print(f"Cards in hand: {self._hand}")
+        print(f"Hand value: {self.count_hand()}")
 
     def draw_card(self, deck):
+        self.get_starter_hand(deck)
+
         while self._in_game:
             hand_value = self.count_hand()
 
@@ -34,11 +37,19 @@ class PlayerBase:
                 new_card = deck.give_card()
                 self._hand.append(new_card)
 
+    def get_starter_hand(self, deck):
+        for _ in range(2):
+            new_card = deck.give_card()
+            self._hand.append(new_card)
+
     def count_hand(self):
         return sum([card.value for card in self._hand])
 
     def show_hand(self):
         print(f"Cards in hand: {self._hand}")
+
+    def __repr__(self):
+        return self._name
 
 
 class Player(PlayerBase):
@@ -48,6 +59,8 @@ class Player(PlayerBase):
         self._name = input("What is your name?")
 
     def draw_card(self, deck):
+        self.get_starter_hand(deck)
+
         self.show_hand()
         print(f"Your hand value: {self.count_hand()}")
 
@@ -136,3 +149,13 @@ if __name__ == '__main__':
     player = Player()
     player.create()
     player.draw_card(deck)
+
+    ai_player = AIPlayer()
+
+    print(f"This is {ai_player} turn.")
+
+    ai_player.create()
+    ai_player.draw_card(deck)
+
+    ai_player.report()
+    player.report()
