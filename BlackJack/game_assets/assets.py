@@ -20,8 +20,19 @@ class PlayerBase:
         print(f"Cards in hand: {self._hand}")
 
     def draw_card(self, deck):
-        new_card = deck.give_card()
-        self._hand.append(new_card)
+        while self._in_game:
+            hand_value = self.count_hand()
+
+            if hand_value > 16:
+                self._in_game = False
+
+                if hand_value > 21:
+                    print(f"{self._name} lost his turn.")
+                else:
+                    print(f"{self._name} passes.")
+            else:
+                new_card = deck.give_card()
+                self._hand.append(new_card)
 
     def count_hand(self):
         return sum([card.value for card in self._hand])
@@ -111,8 +122,6 @@ if __name__ == '__main__':
     ai_player = AIPlayer()
     ai_player.create()
 
-    ai_player.draw_card(deck)
-    ai_player.draw_card(deck)
     ai_player.draw_card(deck)
     ai_player.show_hand()
     print(ai_player.count_hand())
