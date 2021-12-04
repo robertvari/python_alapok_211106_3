@@ -14,6 +14,22 @@ class PlayerBase:
         self._credits = random.randint(100, 1000)
         self._name = random.choice(PlayerBase.name_list)
 
+    def report(self):
+        print(f"Name: {self._name}")
+        print(f"Credits: {self._credits}")
+        print(f"Cards in hand: {self._hand}")
+
+
+class Player(PlayerBase):
+    def create(self):
+        super(Player, self).create()
+
+        self._name = input("What is your name?")
+
+
+class AIPlayer(PlayerBase):
+    pass
+
 
 class Card:
     def __init__(self, name: str, value: int):
@@ -76,3 +92,13 @@ class Deck:
 if __name__ == '__main__':
     deck = Deck()
     deck.create()
+
+    ai_player = AIPlayer()
+    ai_player.create()
+    ai_player.report()
+
+    print("-"*50)
+
+    player = Player()
+    player.create()
+    player.report()
