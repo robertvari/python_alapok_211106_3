@@ -19,6 +19,13 @@ class PlayerBase:
         print(f"Credits: {self._credits}")
         print(f"Cards in hand: {self._hand}")
 
+    def draw_card(self, deck):
+        new_card = deck.give_card()
+        self._hand.append(new_card)
+
+    def show_hand(self):
+        print(f"Cards in hand: {self._hand}")
+
 
 class Player(PlayerBase):
     def create(self):
@@ -85,6 +92,11 @@ class Deck:
 
         random.shuffle(self._cards)
 
+    def give_card(self):
+        new_card = self._cards[-1]
+        self._cards.remove(new_card)
+        return new_card
+
     def __str__(self):
         return f"{self._cards}"
 
@@ -95,10 +107,8 @@ if __name__ == '__main__':
 
     ai_player = AIPlayer()
     ai_player.create()
-    ai_player.report()
 
-    print("-"*50)
-
-    player = Player()
-    player.create()
-    player.report()
+    ai_player.draw_card(deck)
+    ai_player.draw_card(deck)
+    ai_player.draw_card(deck)
+    ai_player.show_hand()
