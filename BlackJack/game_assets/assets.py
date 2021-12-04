@@ -23,6 +23,9 @@ class PlayerBase:
         new_card = deck.give_card()
         self._hand.append(new_card)
 
+    def count_hand(self):
+        return sum([card.value for card in self._hand])
+
     def show_hand(self):
         print(f"Cards in hand: {self._hand}")
 
@@ -112,3 +115,4 @@ if __name__ == '__main__':
     ai_player.draw_card(deck)
     ai_player.draw_card(deck)
     ai_player.show_hand()
+    print(ai_player.count_hand())
