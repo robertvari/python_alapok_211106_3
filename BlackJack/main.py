@@ -14,6 +14,8 @@ class Blackjack:
         self.bet = 0
 
         for player in self.player_list:
+            player.reset_player()
+
             self.bet += player.give_bet(10)
             player.draw_card(deck)
 

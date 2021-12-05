@@ -10,6 +10,10 @@ class PlayerBase:
         self._hand = []
         self._in_game = True
 
+    def reset_player(self):
+        self._hand.clear()
+        self._in_game = True
+
     def create(self):
         self._credits = random.randint(100, 1000)
         self._name = random.choice(PlayerBase.name_list)
