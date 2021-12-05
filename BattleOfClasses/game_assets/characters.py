@@ -1,4 +1,5 @@
 import random
+from items import CommonItem, CommonWeapon, MagicWeapon
 
 
 class CharacterBase:
@@ -8,6 +9,15 @@ class CharacterBase:
         "elf": {"strength": 60, "max_HP": 100, "max_weight": 60},
         "dwarf": {"strength": 130, "max_HP": 230, "max_weight": 150},
     }
+
+    basic_inventory_list = [
+        CommonItem("Cup of beer", price=5, weight=5, health_modifier=5),
+        CommonItem("Cheese", price=10, weight=3, health_modifier=20),
+        CommonItem("Slice of Bread", price=3, weight=2, health_modifier=20),
+        CommonWeapon("Sword", 20, 20, 10),
+        CommonWeapon("Axe", 30, 35, 20),
+        MagicWeapon("Magic Sword", 60, 15, 50, 30),
+    ]
 
     def __init__(self):
         self.inventory = []
@@ -25,8 +35,13 @@ class CharacterBase:
         self.name = self.get_fantasy_name()
         self.race = random.choice(list(self.races))
         self.setup_race()
+        self.generate_inventory()
 
         return self
+
+    def generate_inventory(self):
+        for _ in range(random.randint(0, 3)):
+            self.inventory.append(random.choice(self.basic_inventory_list))
 
     def setup_race(self):
         self.strength = self.races[self.race]["strength"]
@@ -85,5 +100,5 @@ class NPC(CharacterBase):
 
 
 if __name__ == '__main__':
-    player = Player().create()
-    player.report()
+    enemy = Enemy().create()
+    enemy.report()
