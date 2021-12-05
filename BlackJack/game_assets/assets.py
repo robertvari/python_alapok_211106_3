@@ -14,6 +14,8 @@ class PlayerBase:
         self._credits = random.randint(100, 1000)
         self._name = random.choice(PlayerBase.name_list)
 
+        return self
+
     def report(self):
         print(f"Name: {self._name}")
         print(f"Credits: {self._credits}")
@@ -62,6 +64,8 @@ class Player(PlayerBase):
         super(Player, self).create()
 
         self._name = input("What is your name?")
+
+        return self
 
     def draw_card(self, deck):
         self.get_starter_hand(deck)

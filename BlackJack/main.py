@@ -1,3 +1,6 @@
+from game_assets.assets import AIPlayer, Player, Deck
+
+
 class Blackjack:
     def __init__(self):
         self._intro()
@@ -23,10 +26,15 @@ class Blackjack:
 
     def create_players(self):
         # create AI players
-        # create player
+        for _ in range(3):
+            new_AI_player = AIPlayer().create()
+            self.player_list.append(new_AI_player)
 
-        # self.start_game()
-        pass
+        # create player
+        new_player = Player().create()
+        self.player_list.append(new_player)
+
+        self.start_game()
 
     @staticmethod
     def exit_game():
