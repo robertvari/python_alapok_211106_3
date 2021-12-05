@@ -32,10 +32,17 @@ class Blackjack:
         else:
             print("House wins.")
 
-        # if player has credits
-        #    ask of he/she want to play
-        # else
-        #   self.exit_game()
+        player = self.player_list[-1]
+        if player.has_credits:
+            print(f"You have {player.credits}")
+
+            result = input("Do you want to play again? (y/n)")
+            if result == "y":
+                self.start_game()
+            else:
+                self.exit_game()
+        else:
+            self.exit_game()
 
     def create_players(self):
         # create AI players

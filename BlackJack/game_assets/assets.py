@@ -16,6 +16,13 @@ class PlayerBase:
 
         return self
 
+    @property
+    def credits(self):
+        return self._credits
+
+    def has_credits(self) -> bool:
+        return self._credits > 0
+
     def report(self):
         print(f"Name: {self._name}")
         print(f"Credits: {self._credits}")
