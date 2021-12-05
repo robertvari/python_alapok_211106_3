@@ -28,12 +28,14 @@ class Blackjack:
         # self.start_game()
         pass
 
-    def exit_game(self):
+    @staticmethod
+    def exit_game():
         print("Thank you for playing my game. Have a nice day! :)")
         exit()
         pass
 
-    def _intro(self):
+    @staticmethod
+    def _intro():
         print("*"*50, "Blackjack", "*"*50)
 
 
