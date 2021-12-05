@@ -1,5 +1,5 @@
 import random
-from items import CommonItem, CommonWeapon, MagicWeapon
+from items import CommonItem, CommonWeapon, MagicWeapon, WeaponBase
 
 
 class CharacterBase:
@@ -16,6 +16,8 @@ class CharacterBase:
         CommonItem("Slice of Bread", price=3, weight=2, health_modifier=20),
         CommonWeapon("Sword", 20, 20, 10),
         CommonWeapon("Axe", 30, 35, 20),
+        CommonWeapon("Hammer", 30, 35, 20),
+        CommonWeapon("Spear", 30, 35, 20),
         MagicWeapon("Magic Sword", 60, 15, 50, 30),
     ]
 
@@ -25,6 +27,7 @@ class CharacterBase:
         self.race = None
         self.golds = 0
         self.name = None
+        self.right_hand = None
 
         # combat stats
         self.strength = 0
@@ -39,9 +42,31 @@ class CharacterBase:
 
         return self
 
+    def attack(self, other):
+        print(f"{self.name} attacks {other}")
+        attack_strength = random.randint(0, self.strength)
+
+        if self.right_hand:
+            attack_strength += self.right_hand.strength_modifier
+
+        if attack_strength == 0:
+            print(f"{self.name} misses...")
+        else:
+            print(f"{self.name} hits {other} with {attack_strength}")
+            other.current_HP -= attack_strength
+
+    def is_alive(self):
+        return self.current_HP > 0
+
     def generate_inventory(self):
         for _ in range(random.randint(0, 3)):
-            self.inventory.append(random.choice(self.basic_inventory_list))
+            item = random.choice(self.basic_inventory_list)
+            self.inventory.append(item)
+
+        for item in self.inventory:
+            if isinstance(item, WeaponBase):
+                self.right_hand = item
+                break
 
     def setup_race(self):
         self.strength = self.races[self.race]["strength"]
@@ -75,15 +100,20 @@ class CharacterBase:
 
         return f"{random.choice(FIRST)}{random.choice(SECOND)}"
 
+    def __repr__(self):
+        return self.name
+
 
 class Player(CharacterBase):
     def create(self):
-        self.name = input("What is your name?")
-        race = input(f"What is your race? {list(self.races)}")
+        # todo replace this with input()
+        self.name = "Robert"
+        # race = input(f"What is your race? {list(self.races)}")
+        race = "ork"
 
-        while race not in self.races:
-            print("Wrong choice.")
-            race = input(f"What is your race? {list(self.races)}")
+        # while race not in self.races:
+        #     print("Wrong choice.")
+        #     # race = input(f"What is your race? {list(self.races)}")
 
         self.race = race
         self.setup_race()
@@ -100,5 +130,6 @@ class NPC(CharacterBase):
 
 
 if __name__ == '__main__':
-    enemy = Enemy().create()
-    enemy.report()
+    for _ in range(10):
+        enemy = Enemy().create()
+        print(enemy.name, enemy.right_hand)
