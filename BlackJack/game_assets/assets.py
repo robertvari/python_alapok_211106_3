@@ -35,10 +35,12 @@ class PlayerBase:
                     print(f"{self._name} passes.")
             else:
                 new_card = deck.give_card()
-                if "Ace" in new_card.name and self.count_hand() > 10:
-                    new_card.value = 1
-
+                self.check_if_ace(new_card)
                 self._hand.append(new_card)
+
+    def check_if_ace(self, new_card):
+        if "Ace" in new_card.name and self.count_hand() > 10:
+            new_card.value = 1
 
     def get_starter_hand(self, deck):
         for _ in range(2):
@@ -70,10 +72,7 @@ class Player(PlayerBase):
         response = input("Do you want to draw a card? (y/n)")
         while response == "y":
             new_card = deck.give_card()
-
-            # duplicated code block
-            if "Ace" in new_card.name and self.count_hand() > 10:
-                new_card.value = 1
+            self.check_if_ace(new_card)
 
             print(f"You draw a new card: {new_card}")
             self._hand.append(new_card)
