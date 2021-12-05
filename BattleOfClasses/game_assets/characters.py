@@ -73,6 +73,8 @@ class Player(CharacterBase):
         self.race = race
         self.setup_race()
 
+        return self
+
 
 class Enemy(CharacterBase):
     pass
@@ -83,8 +85,5 @@ class NPC(CharacterBase):
 
 
 if __name__ == '__main__':
-    enemy = Enemy().create()
-    enemy.report()
-
-    npc = NPC().create()
-    npc.report()
+    player = Player().create()
+    player.report()
