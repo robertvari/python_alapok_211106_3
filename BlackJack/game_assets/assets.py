@@ -40,6 +40,9 @@ class PlayerBase:
                 self.check_if_ace(new_card)
                 self._hand.append(new_card)
 
+    def add_credits(self, value):
+        self._credits += value
+
     def give_bet(self, value: int):
         self._credits -= value
         return value

@@ -5,25 +5,37 @@ class Blackjack:
     def __init__(self):
         self._intro()
         self.player_list = []
+        self.bet = 0
 
         self.create_players()
 
     def start_game(self):
         deck = Deck().create()
-        bet = 0
+        self.bet = 0
 
         for player in self.player_list:
-            bet += player.give_bet(10)
+            self.bet += player.give_bet(10)
             player.draw_card(deck)
 
         # decide who won the round
-        # give the bet to the winner
+        self._get_winner()
+
+    def _get_winner(self):
+        player_list = [player for player in self.player_list if player.count_hand() <= 21]
+
+        if player_list:
+            winner_list = sorted(player_list, key=lambda p: p.count_hand())
+            winner = winner_list[-1]
+
+            print(f"The winner: {winner} who wins {self.bet} credits.")
+            winner.add_credits(self.bet)
+        else:
+            print("House wins.")
 
         # if player has credits
         #    ask of he/she want to play
         # else
         #   self.exit_game()
-        pass
 
     def create_players(self):
         # create AI players
