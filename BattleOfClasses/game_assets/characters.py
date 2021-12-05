@@ -24,13 +24,16 @@ class CharacterBase:
     def create(self):
         self.name = self.get_fantasy_name()
         self.race = random.choice(list(self.races))
+        self.setup_race()
+
+        return self
+
+    def setup_race(self):
         self.strength = self.races[self.race]["strength"]
         self.max_HP = self.races[self.race]["max_HP"]
         self.current_HP = self.max_HP
         self.golds = random.randint(0, 100)
         self.max_weight = self.races[self.race]["max_weight"]
-
-        return self
 
     def report(self):
         print(f"Name: {self.name}")
@@ -59,7 +62,16 @@ class CharacterBase:
 
 
 class Player(CharacterBase):
-    pass
+    def create(self):
+        self.name = input("What is your name?")
+        race = input(f"What is your race? {list(self.races)}")
+
+        while race not in self.races:
+            print("Wrong choice.")
+            race = input(f"What is your race? {list(self.races)}")
+
+        self.race = race
+        self.setup_race()
 
 
 class Enemy(CharacterBase):
@@ -73,3 +85,6 @@ class NPC(CharacterBase):
 if __name__ == '__main__':
     enemy = Enemy().create()
     enemy.report()
+
+    npc = NPC().create()
+    npc.report()
