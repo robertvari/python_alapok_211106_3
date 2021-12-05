@@ -154,17 +154,10 @@ if __name__ == '__main__':
     deck = Deck()
     deck.create()
 
-    player = Player()
-    player.create()
-    player.draw_card(deck)
-
     ai_player = AIPlayer()
     ai_player.create()
 
     print(f"This is {ai_player} turn.")
 
     ai_player.draw_card(deck)
-
-    print("-"*50, "Final result", "-"*50)
-    ai_player.report()
-    player.report()
+    ai_player.show_hand()
