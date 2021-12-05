@@ -40,6 +40,10 @@ class PlayerBase:
                 self.check_if_ace(new_card)
                 self._hand.append(new_card)
 
+    def give_bet(self, value: int):
+        self._credits -= value
+        return value
+
     def check_if_ace(self, new_card):
         if "Ace" in new_card.name and self.count_hand() > 10:
             new_card.value = 1
@@ -143,6 +147,8 @@ class Deck:
                 self._cards.append(card)
 
         random.shuffle(self._cards)
+
+        return self
 
     def give_card(self):
         new_card = self._cards[-1]

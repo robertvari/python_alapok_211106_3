@@ -9,11 +9,12 @@ class Blackjack:
         self.create_players()
 
     def start_game(self):
-        # create deck
-        # store bet = 0
+        deck = Deck().create()
+        bet = 0
 
-        # for player in player_list
-           # ...
+        for player in self.player_list:
+            bet += player.give_bet(10)
+            player.draw_card(deck)
 
         # decide who won the round
         # give the bet to the winner
